@@ -21,7 +21,6 @@ namespace RocketApi
 
         public void ConfigureServices(IServiceCollection services)
         {
-            //services.Configure<ServiceSettings>(Configuration);
             services.AddControllers();
             var connectionString = Configuration.GetConnectionString("WebApiDatabase");       
             var serverVersion = new MySqlServerVersion(new System.Version(8, 0, 27));   

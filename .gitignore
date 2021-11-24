@@ -2,6 +2,7 @@
 **/.vscode/
 *.txt
 *.cache
+**/obj/
 *.dll
 *.editorconfig 
 *.razor.json
