@@ -23,11 +23,14 @@ namespace RocketApi
         {
             //services.Configure<ServiceSettings>(Configuration);
             services.AddControllers();
+            var connectionString = Configuration.GetConnectionString("WebApiDatabase");       
+            var serverVersion = new MySqlServerVersion(new System.Version(8, 0, 27));   
+            services.AddDbContext<ApplicationContext>(opt =>
+                                               opt.UseMySql(connectionString, serverVersion));
 
-            
 
-            services.AddDbContext<ElevatorsContext>(opt =>
-                                               opt.UseInMemoryDatabase("relational_database"));
+           // services.AddDbContext<ElevatorsContext>(opt =>
+            //                                   opt.UseInMemoryDatabase("relational_database"));
             //services.AddSwaggerGen(c =>
             //{
             //    c.SwaggerDoc("v1", new OpenApiInfo { Title = "TodoApi", Version = "v1" });

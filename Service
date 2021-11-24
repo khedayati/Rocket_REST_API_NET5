@@ -1,8 +1,0 @@
-namespace RocketApi
-{
-    class ServiceSettings
-    {
-        public string OpenRocketApiHost { get; set; }
-        public string ApiKey { get; set; }
-    }
-}
