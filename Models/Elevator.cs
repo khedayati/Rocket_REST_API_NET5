@@ -16,8 +16,5 @@ namespace RocketApi.Models
         public string information { get; set; }
         public string notes { get; set; }
         public DateTime? updated_at { get; set; }
-        //public long Id { get; set; }
-        //public string Name { get; set; }
-        //public bool IsComplete { get; set; }
     }
 }

@@ -84,17 +84,6 @@ namespace RocketApi.Controllers
             return CreatedAtAction(nameof(GetElevator), new { id = elevatorItem.id }, elevatorItem);
         }
 
-        // POST: api/TodoItems
-//[HttpPost]
-//public async Task<ActionResult<TodoItem>> PostTodoItem(TodoItem todoItem)
-//{
-//    _context.TodoItems.Add(todoItem);
-//    await _context.SaveChangesAsync();
-
-    //return CreatedAtAction("GetTodoItem", new { id = todoItem.Id }, todoItem);
-//    return CreatedAtAction(nameof(GetTodoItem), new { id = todoItem.Id }, todoItem);
-//}
-
         // DELETE: api/elevators/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteElevator(long id)
