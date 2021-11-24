@@ -1,2 +1,11 @@
 .envrc
 .vscode
+*.txt
+*.cache
+*.dll
+*.editorconfig 
+*.razor.json
+*.targets
+*/net5.0
+appsettings.json
+appsettings.Development.json

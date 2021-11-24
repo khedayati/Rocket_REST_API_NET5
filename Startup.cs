@@ -21,10 +21,13 @@ namespace RocketApi
 
         public void ConfigureServices(IServiceCollection services)
         {
+            //services.Configure<ServiceSettings>(Configuration);
             services.AddControllers();
 
+            
+
             services.AddDbContext<ElevatorsContext>(opt =>
-                                               opt.UseInMemoryDatabase("TodoList"));
+                                               opt.UseInMemoryDatabase("relational_database"));
             //services.AddSwaggerGen(c =>
             //{
             //    c.SwaggerDoc("v1", new OpenApiInfo { Title = "TodoApi", Version = "v1" });
