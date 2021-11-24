@@ -29,7 +29,7 @@ namespace RocketApi.Controllers
 
         // GET: api/elevators/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Elevator>> GetElevatorItem(long id)
+        public async Task<ActionResult<Elevator>> GetElevator(long id)
         {
             var elevatorItem = await _context.elevators.FindAsync(id);
 
@@ -44,7 +44,7 @@ namespace RocketApi.Controllers
         // PUT: api/elevators/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutElevatorItem(long id, Elevator elevatorItem)
+        public async Task<IActionResult> PutElevator(long id, Elevator elevatorItem)
         {
             if (id != elevatorItem.id)
             {
@@ -59,7 +59,7 @@ namespace RocketApi.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!ElevatorItemExists(id))
+                if (!ElevatorExists(id))
                 {
                     return NotFound();
                 }
@@ -75,13 +75,13 @@ namespace RocketApi.Controllers
         // POST: api/elevators
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Elevator>> PostElevatorItem(Elevator elevatorItem)
+        public async Task<ActionResult<Elevator>> PostElevator(Elevator elevatorItem)
         {
             _context.elevators.Add(elevatorItem);
             await _context.SaveChangesAsync();
 
             //return CreatedAtAction("GetElevatorItem", new { id = elevatorItem.id }, elevatorItem);
-            return CreatedAtAction(nameof(GetElevatorItem), new { id = elevatorItem.id }, elevatorItem);
+            return CreatedAtAction(nameof(GetElevator), new { id = elevatorItem.id }, elevatorItem);
         }
 
         // POST: api/TodoItems
@@ -97,7 +97,7 @@ namespace RocketApi.Controllers
 
         // DELETE: api/elevators/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteElevatorItem(long id)
+        public async Task<IActionResult> DeleteElevator(long id)
         {
             var elevatorItem = await _context.elevators.FindAsync(id);
             if (elevatorItem == null)
@@ -111,7 +111,7 @@ namespace RocketApi.Controllers
             return NoContent();
         }
 
-        private bool ElevatorItemExists(long id)
+        private bool ElevatorExists(long id)
         {
             return _context.elevators.Any(e => e.id == id);
         }
