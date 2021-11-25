@@ -63,8 +63,9 @@ namespace RocketApi.Controllers
         [HttpGet("elevatorsnotinuse")]
         public async Task<dynamic> GetElevatorsNotInUse()
         {
-            var status = "Offline";
-            return await _context.elevators.Where(b => b.status == status).ToListAsync();
+            var statusOffline = "Offline";
+            var statusIntervention = "Intervention";
+            return await _context.elevators.Where(b => ((b.status == statusOffline) || (b.status == statusIntervention))).ToListAsync();
         }
         
         [HttpPost("{id}/{status}/modifyelevatorstatus")]
