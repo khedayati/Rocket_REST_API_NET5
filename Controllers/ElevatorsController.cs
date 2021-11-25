@@ -37,7 +37,7 @@ namespace RocketApi.Controllers
             if (elevatorStatus == null) {
                 return NotFound();
             }
-            Console.WriteLine("elevator status = ", elevatorStatus.ToString());
+            //Console.WriteLine("elevator status = ", elevatorStatus.ToString());
             return elevatorStatus;
         }
 
@@ -55,12 +55,8 @@ namespace RocketApi.Controllers
             return elevatorItem;
         }
 
-        // PUT: api/elevators/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        //[HttpPut("{id}")]
-        //[HttpGet("{id}/modifyElevatorStatus/{status}")]
-
-        [HttpGet("elevatorsnotinuse")]
+        // GET: api/elevators/elevators-not-in-use
+        [HttpGet("elevators-not-in-use")]
         public async Task<dynamic> GetElevatorsNotInUse()
         {
             var statusOffline = "Offline";
@@ -68,7 +64,8 @@ namespace RocketApi.Controllers
             return await _context.elevators.Where(b => ((b.status == statusOffline) || (b.status == statusIntervention))).ToListAsync();
         }
         
-        [HttpPost("{id}/{status}/modifyelevatorstatus")]
+        // POST: api/elevators/5/Online/modify-elevator-status
+        [HttpPost("{id}/{status}/modify-elevator-status")]
         public async Task<dynamic> ChangeElevatorStatus(long id, string status)
         {
             var elevator = await _context.elevators.FindAsync(id);
@@ -76,6 +73,9 @@ namespace RocketApi.Controllers
             if (elevator == null)
             {
                 return NotFound();
+            }
+            if (!(status.Equals("Online") || status.Equals("Offline") || status.Equals("Intervention"))) {
+                return Unauthorized();
             }
             elevator.status = status;
             //await _context.SaveChangesAsync();
