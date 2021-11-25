@@ -59,7 +59,7 @@ namespace RocketApi.Controllers
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         //[HttpPut("{id}")]
         //[HttpGet("{id}/modifyElevatorStatus/{status}")]
-        [HttpPost("{id}/{status}/modifystatus")]
+        [HttpPost("{id}/{status}/modifyelevatorstatus")]
         public async Task<dynamic> ChangeElevatorStatus(long id, string status)
         {
             var elevator = await _context.elevators.FindAsync(id);
