@@ -1,5 +1,6 @@
 using System;
 using Microsoft.EntityFrameworkCore;
+using RocketApi.Models;
 
 namespace RocketApi.Models
 {
@@ -10,5 +11,7 @@ namespace RocketApi.Models
         {}
 
         public DbSet<Elevator> elevators { get; set; }
+
+        public DbSet<RocketApi.Models.addresses> addresses { get; set; }
     }
 }
