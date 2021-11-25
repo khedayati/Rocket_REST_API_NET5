@@ -59,32 +59,36 @@ namespace RocketApi.Controllers
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         //[HttpPut("{id}")]
         //[HttpGet("{id}/modifyElevatorStatus/{status}")]
+
+        [HttpGet("elevatorsnotinuse")]
+        public async Task<dynamic> GetElevatorsNotInUse()
+        {
+            var status = "Offline";
+            return await _context.elevators.Where(b => b.status == status).ToListAsync();
+        }
         
         [HttpPost("{id}/{status}/modifyelevatorstatus")]
         public async Task<dynamic> ChangeElevatorStatus(long id, string status)
         {
             var elevator = await _context.elevators.FindAsync(id);
+
+            if (elevator == null)
+            {
+                return NotFound();
+            }
             elevator.status = status;
-            await _context.SaveChangesAsync();
-            return elevator;
-            /*
+            //await _context.SaveChangesAsync();
+            //return elevator;
+            
             try
             {
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!ElevatorExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+                throw;
             }
             return elevator;
-            */
         }
 
         // PUT: api/elevators/5
