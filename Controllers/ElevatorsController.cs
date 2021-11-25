@@ -22,14 +22,14 @@ namespace RocketApi.Controllers
 
         // GET: api/elevators
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Elevator>>> GetElevators()
+        public async Task<ActionResult<IEnumerable<Elevators>>> GetElevators()
         {
             return await _context.elevators.ToListAsync();
         }
 
         // GET: api/elevators/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Elevator>> GetElevator(long id)
+        public async Task<ActionResult<Elevators>> GetElevator(long id)
         {
             var elevatorItem = await _context.elevators.FindAsync(id);
 
@@ -44,7 +44,7 @@ namespace RocketApi.Controllers
         // PUT: api/elevators/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutElevator(long id, Elevator elevatorItem)
+        public async Task<IActionResult> PutElevator(long id, Elevators elevatorItem)
         {
             if (id != elevatorItem.id)
             {
@@ -75,7 +75,7 @@ namespace RocketApi.Controllers
         // POST: api/elevators
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Elevator>> PostElevator(Elevator elevatorItem)
+        public async Task<ActionResult<Elevators>> PostElevator(Elevators elevatorItem)
         {
             _context.elevators.Add(elevatorItem);
             await _context.SaveChangesAsync();

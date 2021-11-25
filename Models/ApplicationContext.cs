@@ -9,6 +9,8 @@ namespace RocketApi.Models
             : base(options)
         {}
 
-        public DbSet<Elevator> elevators { get; set; }
+        public DbSet<Elevators> elevators { get; set; }
+        public DbSet<Elevators> Columns { get; set; }
+        public DbSet<Elevators> Buildings { get; set; }
     }
 }

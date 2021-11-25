@@ -2,7 +2,7 @@ using System;
 
 namespace RocketApi.Models
 {
-    public class Elevator
+    public class Elevators
     {
         public long id { get; set; }
         public long column_id { get; set; }
