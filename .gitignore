@@ -10,3 +10,6 @@
 **/net5.0/
 appsettings.json
 appsettings.Development.json
+*.csproj.nuget.dgspec.json
+*.csproj.nuget.g.props
+*.assets.json
