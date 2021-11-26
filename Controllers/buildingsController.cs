@@ -43,31 +43,23 @@ namespace RocketApi.Controllers
             return buildings;
         }
 
-
-        public buildings buildingsFindById(long id, List<buildings> listBuilding)
-        {
-            foreach (buildings building in listBuilding)
-            {
-                if (building.id == id)
-                {
-                    return building;
-                }
-            }
-            return null;
-        }
-
         //--------- Retrieving a list of Buildings that contain at least one battery, column or elevator requiring intervention ---------\\
 
         [HttpGet("get-intervention-buildings")]
         public async Task<IEnumerable<buildings>> GetBuildings()
         {
             List<buildings> buildings_list = new List<buildings>();
+
+            // Begin searching in buildings 
             foreach (buildings building in await _context.buildings.ToListAsync())
             {
                 var i = 0;
                 var j = 0;
+
+                // Loop through in batteries where its building_id is equal to building.id 
                 foreach (Battery battery in await _context.batteries.Where(b => b.building_id == building.id).ToListAsync())
                 {
+                    // Seek any battery that has an "intervention" status
                     if (battery.status == "Intervention")
                     {
                         buildings_list.Add(building);
@@ -75,15 +67,20 @@ namespace RocketApi.Controllers
                         break;
                     }
                 }
+                // Loop through in batteries where its building_id is equal to building.id 
                 foreach (Battery battery in await _context.batteries.Where(b => b.building_id == building.id).ToListAsync())
                 {
+                    // break from the loop since the column with an "intervention" status was found
                     if (i == 1)
                     {
                         break;
                     }
                     var l = await _context.columns.Where(c => c.battery_id == battery.id).ToListAsync();
+
+                    // A battery contains a column, we must then loop through columns if in the loop above a battery was found
                     foreach (Column column in await _context.columns.Where(c => c.battery_id == battery.id).ToListAsync())
                     {
+                        // Seek any column that has an "intervention" status
                         if (column.status == "Intervention")
                         {   
                             i = 1;
@@ -92,20 +89,26 @@ namespace RocketApi.Controllers
                         }
                     }
                 }
+                // Loop through in batteries again but give the opportunity to search through elevators.
+                // Since a Battery may contain Columns and Elevators, if we found any one of the first two objects, we broke
+                // from their loops and we need to loop through them again to see if an elevator has the 'intervention' status
                 foreach (Battery battery in await _context.batteries.Where(b => b.building_id == building.id).ToListAsync())
                 {
+                    // break from the loop since the elevator with an "intervention" status was found
                     if (j == 1)
                     {
                         break;
                     }
                     foreach (Column column in await _context.columns.Where(c => c.battery_id == battery.id).ToListAsync())
                     {
+                        // break from the loop since the elevator with an "intervention" status was found
                         if (j == 1)
                         {
                             break;
                         }
                         foreach (Elevator elevator in await _context.elevators.Where(e => e.column_id == column.id).ToListAsync())
                         {
+                            // Seek any elevator that has an "intervention" status
                             if (elevator.status == "Intervention")
                             {
                                 buildings_list.Add(building);
@@ -119,71 +122,6 @@ namespace RocketApi.Controllers
                 }
             }
             return buildings_list;
-        }
-        
-        //-------------------------------------------------------------------------------------------------------------------------------\\
-
-        // PUT: api/buildings/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> Putbuildings(long id, buildings buildings)
-        {
-            if (id != buildings.id)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(buildings).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!buildingsExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
-        }
-
-        // POST: api/buildings
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
-        public async Task<ActionResult<buildings>> Postbuildings(buildings buildings)
-        {
-            _context.buildings.Add(buildings);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("Getbuildings", new { id = buildings.id }, buildings);
-        }
-
-        // DELETE: api/buildings/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> Deletebuildings(long id)
-        {
-            var buildings = await _context.buildings.FindAsync(id);
-            if (buildings == null)
-            {
-                return NotFound();
-            }
-
-            _context.buildings.Remove(buildings);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
-        }
-
-        private bool buildingsExists(long id)
-        {
-            return _context.buildings.Any(e => e.id == id);
         }
     }
 }
