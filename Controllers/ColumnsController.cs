@@ -18,6 +18,13 @@ namespace RocketApi.Controllers
       _context = context;
     }
 
+    // GET: api/Buildings
+    [HttpGet]
+    public async Task<ActionResult<IEnumerable<Column>>> GetColumn()
+    {
+      return await _context.columns.ToListAsync();
+    }
+
     [HttpGet("{id}/status")]
     public async Task<ActionResult<string>> GetColumnStatus(long id)
     {
