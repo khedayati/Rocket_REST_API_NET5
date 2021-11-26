@@ -7,8 +7,6 @@ using RocketApi.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 
-
-
 namespace RocketApi.Controllers
 {
   [Route("api/[controller]")]
@@ -27,6 +25,7 @@ namespace RocketApi.Controllers
     [HttpGet]
     public async Task<ActionResult<IEnumerable<Battery>>> GetBatteries()
     {
+      // Get all batteries
       return await _context.batteries.ToListAsync();
     }
 
@@ -38,6 +37,8 @@ namespace RocketApi.Controllers
     public ActionResult<List<Battery>> GetBattery(long id)
     {
       List<Battery> batteriesList = new List<Battery>();
+
+      // Find battery by its id
       var findBattery = from battery in _context.batteries
                         where id == battery.building_id
                         select battery;
@@ -51,6 +52,7 @@ namespace RocketApi.Controllers
     [HttpGet("{id}/status")]
     public async Task<ActionResult<string>> GetBatteryStatus(long id)
     {
+      // Find battery by its id
       var battery = await _context.batteries.FindAsync(id);
 
       if (battery == null)
@@ -66,20 +68,24 @@ namespace RocketApi.Controllers
     [HttpGet("update/{id}/{status}")]
     public async Task<dynamic> test(string status, long id)
     {
+      // Find battery by its id
       var battery = await _context.batteries.FindAsync(id);
 
       if (battery == null) {
         return NotFound();
       }
 
+      // Check if the given status is either online, offline or intervention
       if (!(status.Equals("Online") || status.Equals("online")) && 
           !(status.Equals("Offline") || status.Equals("offline")) &&
 		      !(status.Equals("Intervention") || status.Equals("intervention"))) {
             return Unauthorized();
       }
 
+      // Change battery status
       battery.status = status;
 
+      // Save battery status
       try
       {
         await _context.SaveChangesAsync();
@@ -88,7 +94,6 @@ namespace RocketApi.Controllers
       {
         throw;
       }
-      //await _context.SaveChangesAsync();
 
       return battery;
     }
