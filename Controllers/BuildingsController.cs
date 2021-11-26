@@ -24,45 +24,23 @@ namespace RocketApi.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Building>>> GetBuilding()
         {
-            return await _context.Building.ToListAsync();
+            return await _context.buildings.ToListAsync();
         }
 
-        // GET: api/Buildings/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Building>> GetBuilding(long id)
+/*
+        // GET: api/buildings/buildings-with-at-least-one-battery-column-elevator-intervention
+        [HttpGet("buildings-with-at-least-one-battery-column-elevator-intervention")]
+        //public HashSet<Building> GetBuidlingsRequiringIntervention()
+        public async Task<ActionResult<HashSet<Building>>> GetBuidlingsRequiringIntervention()
         {
-            var building = await _context.Building.FindAsync(id);
+            //await .OpenAsync();
 
-            if (building == null)
-            {
-                return NotFound();
-            }
+            //List<Building> buildingList = new List<Building>();
+            HashSet<Building> buildingList = new HashSet<Building>();
+            //var List<add_battery> = new List<add_battery>();
 
-            return building;
-        }
 
-        // PUT: api/Buildings/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutBuilding(long id, Building building)
-        {
-            if (id != building.id)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(building).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!BuildingExists(id))
-                {
-                    return NotFound();
-                }
+"BuildingsController.cs" 205L, 6822C                                                                                              1,1           Top
                 else
                 {
                     throw;
@@ -77,7 +55,7 @@ namespace RocketApi.Controllers
         [HttpPost]
         public async Task<ActionResult<Building>> PostBuilding(Building building)
         {
-            _context.Building.Add(building);
+            _context.buildings.Add(building);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetBuilding", new { id = building.id }, building);
@@ -87,13 +65,13 @@ namespace RocketApi.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteBuilding(long id)
         {
-            var building = await _context.Building.FindAsync(id);
+            var building = await _context.buildings.FindAsync(id);
             if (building == null)
             {
                 return NotFound();
             }
 
-            _context.Building.Remove(building);
+            _context.buildings.Remove(building);
             await _context.SaveChangesAsync();
 
             return NoContent();
@@ -101,7 +79,8 @@ namespace RocketApi.Controllers
 
         private bool BuildingExists(long id)
         {
-            return _context.Building.Any(e => e.id == id);
+            return _context.buildings.Any(e => e.id == id);
         }
+        */
     }
 }
