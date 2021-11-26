@@ -39,8 +39,9 @@ namespace RocketApi.Controllers
             }
             return null;
         }
-/*
-        [HttpGet]
+
+        // GET: api/buildings/get-intervention-buildings
+        [HttpGet("get-intervention-buildings")]
         public List<Building> GetBuildings()
         {
             var buildings = _context.buildings.ToList();
@@ -64,7 +65,6 @@ namespace RocketApi.Controllers
             }
             return result;
         }
-*/
 /*
         // GET: api/buildings/buildings-with-at-least-one-battery-column-elevator-intervention
         [HttpGet("buildings-with-at-least-one-battery-column-elevator-intervention")]
