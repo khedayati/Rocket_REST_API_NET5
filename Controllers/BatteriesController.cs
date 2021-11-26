@@ -65,6 +65,7 @@ namespace RocketApi.Controllers
     
     //----------------------------------- Changing the status of a specific Battery -----------------------------------\\
 
+    //Get: api/Batteries/update/id/status
     [HttpGet("update/{id}/{status}")]
     public async Task<dynamic> test(string status, long id)
     {

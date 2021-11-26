@@ -19,6 +19,7 @@ namespace RocketApi.Controllers
       _context = context;
     }
 
+    //Get: api/Leads
     [HttpGet]
     public List<Lead> GetLeads()
     {

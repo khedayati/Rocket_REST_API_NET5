@@ -18,7 +18,7 @@ namespace RocketApi.Controllers
       _context = context;
     }
 
-    // GET: api/Buildings
+    // GET: api/Columns
     [HttpGet]
     public async Task<ActionResult<IEnumerable<Column>>> GetColumn()
     {
@@ -27,10 +27,11 @@ namespace RocketApi.Controllers
 
     //----------------------------------- Retrieving the current status of a specific Column -----------------------------------\\
 
+    //Get: api/Columns/id/status
     [HttpGet("{id}/status")]
     public async Task<ActionResult<string>> GetColumnStatus(long id)
     {
-      // Find battery by its id
+      // Find column by its id
       var column = await _context.columns.FindAsync(id);
       if (column == null)
       {
@@ -41,10 +42,11 @@ namespace RocketApi.Controllers
 
     //----------------------------------- Changing the status of a specific Column -----------------------------------\\
 
+    //Get: api/Columns/update/id/status
     [HttpGet("update/{id}/{status}")]
     public async Task<dynamic> test(string status, long id)
     {
-      // Find battery by its id
+      // Find column by its id
       var column = await _context.columns.FindAsync(id);
 
       // Check if the given status is either online, offline or intervention
@@ -53,10 +55,10 @@ namespace RocketApi.Controllers
 		      !(status.Equals("Intervention") || status.Equals("intervention"))) {
             return Unauthorized();
       }
-      // Change battery status
+      // Change column status
       column.status = status;
       
-      // Save battery status
+      // Save column status
       try
       {
       await _context.SaveChangesAsync();
@@ -65,7 +67,7 @@ namespace RocketApi.Controllers
       {
         throw;
       }
-      
+
       return column;
     }
   }

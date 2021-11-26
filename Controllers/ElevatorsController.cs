@@ -44,10 +44,11 @@ namespace RocketApi.Controllers
 
         //----------------------------------- Retrieving the current status of a specific Elevator -----------------------------------\\
 
-        // GET: api/elevators/5
+        // GET: api/elevators/id
         [HttpGet("{id}")]
         public async Task<ActionResult<Elevator>> GetElevator(long id)
         {
+            // Find elevator by its id
             var elevatorItem = await _context.elevators.FindAsync(id);
 
             if (elevatorItem == null)
@@ -64,9 +65,7 @@ namespace RocketApi.Controllers
         [HttpGet("elevators-not-in-use")]
         public async Task<dynamic> GetElevatorsNotInUse()
         {
-            var statusOffline = "Offline";
-            var statusIntervention = "Intervention";
-            return await _context.elevators.Where(b => ((b.status == statusOffline) || (b.status == statusIntervention))).ToListAsync();
+            return await _context.elevators.Where(b => ((b.status == "Offline") || (b.status == "Intervention"))).ToListAsync();
         }
         
         //----------------------------------- Changing the status of a specific Elevator -----------------------------------\\
@@ -75,6 +74,7 @@ namespace RocketApi.Controllers
         [HttpPost("{id}/{status}/modify-elevator-status")]
         public async Task<dynamic> ChangeElevatorStatus(long id, string status)
         {
+            // Find elevator by its id
             var elevator = await _context.elevators.FindAsync(id);
 
             if (elevator == null)
@@ -82,15 +82,16 @@ namespace RocketApi.Controllers
                 return NotFound();
             }
 
+            // Check if the given status is either online, offline or intervention
             if (!(status.Equals("Online") || status.Equals("online")) && 
                 !(status.Equals("Offline") || status.Equals("offline")) &&
 		        !(status.Equals("Intervention") || status.Equals("intervention"))) {
                 return Unauthorized();
             }
+            // Change elevator status
             elevator.status = status;
-            //await _context.SaveChangesAsync();
-            //return elevator;
-            
+
+            // Save elevator status            
             try
             {
                 await _context.SaveChangesAsync();
@@ -100,66 +101,6 @@ namespace RocketApi.Controllers
                 throw;
             }
             return elevator;
-        }
-
-        // PUT: api/elevators/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutElevator(long id, Elevator elevatorItem)
-        {
-            if (id != elevatorItem.id)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(elevatorItem).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!ElevatorExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
-        }
-
-        // POST: api/elevators
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-    /*
-        [HttpPost]
-        public async Task<ActionResult<Elevator>> PostElevator(Elevator elevatorItem)
-        {
-            _context.elevators.Add(elevatorItem);
-            await _context.SaveChangesAsync();
-
-            //return CreatedAtAction("GetElevatorItem", new { id = elevatorItem.id }, elevatorItem);
-            return CreatedAtAction(nameof(GetElevator), new { id = elevatorItem.id }, elevatorItem);
-        }
-    */
-        // DELETE: api/elevators/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteElevator(long id)
-        {
-            var elevatorItem = await _context.elevators.FindAsync(id);
-            if (elevatorItem == null)
-            {
-                return NotFound();
-            }
-
-            _context.elevators.Remove(elevatorItem);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
         }
 
         private bool ElevatorExists(long id)
