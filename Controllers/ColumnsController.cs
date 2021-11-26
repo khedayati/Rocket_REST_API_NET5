@@ -25,6 +25,8 @@ namespace RocketApi.Controllers
       return await _context.columns.ToListAsync();
     }
 
+    //----------------------------------- Retrieving the current status of a specific Column -----------------------------------\\
+
     [HttpGet("{id}/status")]
     public async Task<ActionResult<string>> GetColumnStatus(long id)
     {
@@ -35,6 +37,8 @@ namespace RocketApi.Controllers
       }
       return column.status;
     }
+
+    //----------------------------------- Changing the status of a specific Column -----------------------------------\\
 
     [HttpGet("update/{id}/{status}")]
     public async Task<dynamic> test(string status, long id)

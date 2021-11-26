@@ -29,6 +29,8 @@ namespace RocketApi.Controllers
             return await _context.elevators.ToListAsync();
         }
 
+        //----------------------------------- Retrieving all information from a specific Elevator -----------------------------------\\
+
         // GET: api/elevators/5/status
         [HttpGet("{id}/status")]
         public async Task<ActionResult<string>> GetElevatorStatus(long id)
@@ -37,9 +39,10 @@ namespace RocketApi.Controllers
             if (elevatorStatus == null) {
                 return NotFound();
             }
-            //Console.WriteLine("elevator status = ", elevatorStatus.ToString());
             return elevatorStatus;
         }
+
+        //----------------------------------- Retrieving the current status of a specific Elevator -----------------------------------\\
 
         // GET: api/elevators/5
         [HttpGet("{id}")]
@@ -55,6 +58,8 @@ namespace RocketApi.Controllers
             return elevatorItem;
         }
 
+        //------------------- Retrieving a list of Elevators that are not in operation at the time of the request -------------------\\
+
         // GET: api/elevators/elevators-not-in-use
         [HttpGet("elevators-not-in-use")]
         public async Task<dynamic> GetElevatorsNotInUse()
@@ -64,6 +69,8 @@ namespace RocketApi.Controllers
             return await _context.elevators.Where(b => ((b.status == statusOffline) || (b.status == statusIntervention))).ToListAsync();
         }
         
+        //----------------------------------- Changing the status of a specific Elevator -----------------------------------\\
+
         // POST: api/elevators/5/Online/modify-elevator-status
         [HttpPost("{id}/{status}/modify-elevator-status")]
         public async Task<dynamic> ChangeElevatorStatus(long id, string status)
