@@ -22,14 +22,14 @@ namespace RocketApi.Controllers
 
         // GET: api/addresses
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<addresses>>> Getaddresses()
+        public async Task<ActionResult<IEnumerable<Addresses>>> Getaddresses()
         {
             return await _context.addresses.ToListAsync();
         }
 
         // GET: api/addresses/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<addresses>> Getaddresses(long id)
+        public async Task<ActionResult<Addresses>> Getaddresses(long id)
         {
             var addresses = await _context.addresses.FindAsync(id);
 
@@ -44,7 +44,7 @@ namespace RocketApi.Controllers
         // PUT: api/addresses/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> Putaddresses(long id, addresses addresses)
+        public async Task<IActionResult> Putaddresses(long id, Addresses addresses)
         {
             if (id != addresses.id)
             {
@@ -75,7 +75,7 @@ namespace RocketApi.Controllers
         // POST: api/addresses
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<addresses>> Postaddresses(addresses addresses)
+        public async Task<ActionResult<Addresses>> Postaddresses(Addresses addresses)
         {
             _context.addresses.Add(addresses);
             await _context.SaveChangesAsync();
