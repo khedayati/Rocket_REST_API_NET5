@@ -12,6 +12,6 @@ namespace RocketApi.Models.Models
         public DateTime updated_at { get; set; }
         public long? building_id { get; set; }
 
-        public virtual Building building { get; set; }
+        public virtual buildings building { get; set; }
     }
 }
