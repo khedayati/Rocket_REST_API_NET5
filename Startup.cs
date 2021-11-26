@@ -22,7 +22,7 @@ namespace RocketApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            var connectionString = Configuration.GetConnectionString("MYSQL_CONNECTION_STRING"); // MYSQL_CONNECTION_STRING WebApiDatabase
+            var connectionString = Configuration.GetConnectionString("WebApiDatabase"); // MYSQL_CONNECTION_STRING WebApiDatabase
             var serverVersion = new MySqlServerVersion(new System.Version(8, 0, 27));   
             services.AddDbContext<ApplicationContext>(opt =>
                                                opt.UseMySql(connectionString, serverVersion));

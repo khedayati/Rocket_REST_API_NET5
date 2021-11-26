@@ -74,7 +74,8 @@ namespace RocketApi.Controllers
             {
                 return NotFound();
             }
-            if (!(status.Equals("Online") || status.Equals("Offline") || status.Equals("Intervention"))) {
+            if (!(status.Equals("Online") || status.Equals("Offline") || status.Equals("Intervention")) ||
+                !(status.Equals("online") || status.Equals("offline") || status.Equals("intervention"))) {
                 return Unauthorized();
             }
             elevator.status = status;
