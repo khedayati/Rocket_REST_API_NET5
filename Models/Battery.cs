@@ -10,7 +10,7 @@ namespace RocketApi.Models
     public string battery_type { get; set; }
     public string status { get; set; }
     public long employee_id { get; set; }
-    public string Date_of_ { get; set; }
+    //public string Date_of_ { get; set; }
     //public DateTime? date_of_the_last_inspection { get; set; }
     public string certificate_of_operations { get; set; }
     public string information { get; set; }

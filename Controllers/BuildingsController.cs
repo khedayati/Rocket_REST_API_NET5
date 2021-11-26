@@ -27,6 +27,44 @@ namespace RocketApi.Controllers
             return await _context.buildings.ToListAsync();
         }
 
+
+        public Building buildingsFindById(long id, List<Building> listBuilding)
+        {
+            foreach (Building building in listBuilding)
+            {
+                if (building.id == id)
+                {
+                    return building;
+                }
+            }
+            return null;
+        }
+/*
+        [HttpGet]
+        public List<Building> GetBuildings()
+        {
+            var buildings = _context.buildings.ToList();
+            var batteries = _context.batteries.ToList();
+            var columns = _context.columns.ToList();
+            var elevators = _context.elevators.ToList();
+            var filteredBatteries = batteries
+                                    .Where(battety => (battety.status == "intervention" || battety.status == "Intervention")).ToList();
+            var filteredColumns = columns
+                                  .Where(column => (column.status == "intervention" || column.status == "Intervention")).ToList();
+            var filteredElevators = elevators
+                                    .Where(elevator => (elevator.status == "intervention" || elevator.status == "Intervention")).ToList();
+            List<Building> result = new List<Building>();
+            foreach (Battery battery in filteredBatteries)
+            {
+                var containerBuilding = buildingsFindById(battery.building_id, buildings);
+                if (containerBuilding != null && battery.getColumnList(filteredColumns, filteredElevators) && !result.Contains(containerBuilding))
+                {
+                    result.Add(containerBuilding);
+                }
+            }
+            return result;
+        }
+*/
 /*
         // GET: api/buildings/buildings-with-at-least-one-battery-column-elevator-intervention
         [HttpGet("buildings-with-at-least-one-battery-column-elevator-intervention")]

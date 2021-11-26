@@ -23,28 +23,12 @@ namespace RocketApi.Controllers
     {
       _context = context;
     }
-/*
-    // GET: api/batteries
+
     [HttpGet]
     public async Task<ActionResult<IEnumerable<Battery>>> GetBatteries()
     {
-        return await _context.batteries.ToListAsync();
+      return await _context.batteries.ToListAsync();
     }
-    [HttpGet]
-    public async Task<dynamic> GetAllBatteries()
-    {
-      var batteries = await _context.batteries.ToListAsync();
-      var i = 0;
-      var numbers = new List<Int64>() { };
-      foreach (Battery battery in batteries)
-      {
-        i++;
-      }
-      numbers.Add(i);
-      return numbers;
-    }
-*/
-
 
     //Get: api/Batteries/id       
     //Info for battery *id= battery you want info on, for example: 1*
@@ -59,6 +43,8 @@ namespace RocketApi.Controllers
       return batteriesList;
     }
 
+    
+    //Get: api/Batteries/id/status
     [HttpGet("{id}/status")]
     public async Task<ActionResult<string>> GetBatteryStatus(long id)
     {
@@ -81,9 +67,10 @@ namespace RocketApi.Controllers
         return NotFound();
       }
 
-      if (!(status.Equals("Online") || status.Equals("Offline") || status.Equals("Intervention")) ||
-          !(status.Equals("online") || status.Equals("offline") || status.Equals("intervention"))) {
-        return Unauthorized();
+      if (!(status.Equals("Online") || status.Equals("online")) && 
+          !(status.Equals("Offline") || status.Equals("offline")) &&
+		      !(status.Equals("Intervention") || status.Equals("intervention"))) {
+            return Unauthorized();
       }
 
       battery.status = status;
@@ -102,3 +89,7 @@ namespace RocketApi.Controllers
     }
   }
 }
+
+
+
+

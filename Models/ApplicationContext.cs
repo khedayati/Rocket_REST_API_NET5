@@ -12,17 +12,17 @@ namespace RocketApi.Models
 
         public DbSet<Elevator> elevators { get; set; }
 
-        public DbSet<RocketApi.Models.Addresses> addresses { get; set; }
+        public DbSet<Addresses> addresses { get; set; }
 
         public DbSet<Column> columns { get; set; }
         public DbSet<Battery> batteries { get; set; }
         public DbSet<Customer> customers { get; set; }
 
-        public DbSet<RocketApi.Models.Lead> leads { get; set; }
-        public DbSet<RocketApi.Models.Building> buildings { get; set; }
-
         public DbSet<Lead> leads { get; set; }
-        public DbSet<RocketApi.Models.Building> Building { get; set; }
+        public DbSet<Building> buildings { get; set; }
+
+        //public DbSet<Lead> leads { get; set; }
+        //public DbSet<RocketApi.Models.Building> Building { get; set; }
 
     }
 }
