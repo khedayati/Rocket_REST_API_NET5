@@ -22,34 +22,27 @@ namespace RocketApi.Controllers
     [HttpGet]
     public List<Lead> GetLeads()
     {
-      //var leads = _context.leads;
-      //var customers = _context.customers.ToList();
+      var leads = _context.leads.ToList();
+      var customers = _context.customers.ToList();
       List<Lead> notCustomers = new List<Lead>();
 
       DateTime currentDate = DateTime.Now;
-      /*
-      List<Lead> filteredLeads = _context.leads
-                                .Where(lead => lead.date_of_creation > currentDate
-                                .AddDays(Convert.ToDouble(-30)))
-                                .ToList();
-      List<Customer> filteredCustomers = _context.customers
-                                         .Where(customer => customer.customer_creation_date > currentDate
-                                         .AddDays(Convert.ToDouble(-30)))
-                                         .ToList();
+      List<Lead> filteredLeads = leads.Where(lead => lead.date_of_creation > currentDate.AddDays(Convert.ToDouble(-30))).ToList();
+      List<Customer> filteredCustomers = customers.Where(customer => customer.customer_creation_date > currentDate.AddDays(Convert.ToDouble(-30))).ToList();
 
-      foreach (Lead lead in _context.leads)
+      foreach (Lead lead in leads)
       {
-        foreach (Customer customer in _context.customers)
+        foreach (Customer customer in customers)
         {
-          if (lead.email != customer.Email && lead.phone != customer.company_contact_phone)
+          if (!lead.email.Equals(customer.email_of_the_company_contact) && (lead.phone != customer.company_contact_phone))
           {
             notCustomers.Add(lead);
-            //return notCustomers;
+            return notCustomers;
           }
         }
       }
-      */
       return notCustomers;
+
     }
   }
 }

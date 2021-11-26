@@ -9,7 +9,7 @@ namespace RocketApi.Models
     public DateTime? customer_creation_date { get; set; }
     public string company_name { get; set; }
     public string company_contact_phone { get; set; }
-    public string Email { get; set; }
+    public string email_of_the_company_contact { get; set; }
 
   }
 }
