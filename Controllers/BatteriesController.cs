@@ -7,8 +7,6 @@ using RocketApi.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 
-
-
 namespace RocketApi.Controllers
 {
   [Route("api/[controller]")]
@@ -27,8 +25,11 @@ namespace RocketApi.Controllers
     [HttpGet]
     public async Task<ActionResult<IEnumerable<Battery>>> GetBatteries()
     {
+      // Get all batteries
       return await _context.batteries.ToListAsync();
     }
+
+    //----------------------------------- Retrieving all information from a specific Battery -----------------------------------\\
 
     //Get: api/Batteries/id       
     //Info for battery *id= battery you want info on, for example: 1*
@@ -36,6 +37,8 @@ namespace RocketApi.Controllers
     public ActionResult<List<Battery>> GetBattery(long id)
     {
       List<Battery> batteriesList = new List<Battery>();
+
+      // Find battery by its id
       var findBattery = from battery in _context.batteries
                         where id == battery.building_id
                         select battery;
@@ -43,11 +46,13 @@ namespace RocketApi.Controllers
       return batteriesList;
     }
 
-    
+    //----------------------------------- Retrieving the current status of a specific Battery -----------------------------------\\
+
     //Get: api/Batteries/id/status
     [HttpGet("{id}/status")]
     public async Task<ActionResult<string>> GetBatteryStatus(long id)
     {
+      // Find battery by its id
       var battery = await _context.batteries.FindAsync(id);
 
       if (battery == null)
@@ -57,24 +62,30 @@ namespace RocketApi.Controllers
 
       return battery.status;
     }
+    
+    //----------------------------------- Changing the status of a specific Battery -----------------------------------\\
 
     [HttpGet("update/{id}/{status}")]
     public async Task<dynamic> test(string status, long id)
     {
+      // Find battery by its id
       var battery = await _context.batteries.FindAsync(id);
 
       if (battery == null) {
         return NotFound();
       }
 
+      // Check if the given status is either online, offline or intervention
       if (!(status.Equals("Online") || status.Equals("online")) && 
           !(status.Equals("Offline") || status.Equals("offline")) &&
 		      !(status.Equals("Intervention") || status.Equals("intervention"))) {
             return Unauthorized();
       }
 
+      // Change battery status
       battery.status = status;
 
+      // Save battery status
       try
       {
         await _context.SaveChangesAsync();
@@ -83,7 +94,6 @@ namespace RocketApi.Controllers
       {
         throw;
       }
-      //await _context.SaveChangesAsync();
 
       return battery;
     }

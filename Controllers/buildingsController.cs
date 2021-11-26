@@ -27,6 +27,8 @@ namespace RocketApi.Controllers
             return await _context.buildings.ToListAsync();
         }
 
+        //----------------------------------- Retrieving all information from a specific Building -----------------------------------\\
+
         // GET: api/buildings/5
         [HttpGet("{id}")]
         public async Task<ActionResult<buildings>> Getbuildings(long id)
@@ -53,28 +55,8 @@ namespace RocketApi.Controllers
             }
             return null;
         }
-        // GET: api/buildings/get-intervention-buildings
-        // [HttpGet("get-intervention-buildings")]
-        // public List<buildings> GetBuildings()
-        // {
-        //     var buildings = _context.buildings.ToList();
-        //     var batteries = _context.batteries.ToList();
-        //     var columns = _context.columns.ToList();
-        //     var elevators = _context.elevators.ToList();
-        //     var filteredBatteries = batteries.Where(batteries => (batteries.status == "intervention" || batteries.status == "Intervention")).ToList();
-        //     var filteredColumns = columns.Where(column => (column.status == "intervention" || column.status == "Intervention")).ToList();
-        //     var filteredElevators = elevators.Where(elevator => (elevator.status == "intervention" || elevator.status == "Intervention")).ToList();
-        //     List<buildings> result = new List<buildings>();
-        //     foreach (Battery battery in filteredBatteries)
-        //     {
-        //         var containerBuilding = buildingsFindById(battery.building_id, buildings);
-        //         if (containerBuilding != null && battery.getColumnList(filteredColumns, filteredElevators) && !result.Contains(containerBuilding))
-        //         {
-        //             result.Add(containerBuilding);
-        //         }
-        //     }
-        //     return result;
-        // }
+
+        //--------- Retrieving a list of Buildings that contain at least one battery, column or elevator requiring intervention ---------\\
 
         [HttpGet("get-intervention-buildings")]
         public async Task<IEnumerable<buildings>> GetBuildings()
@@ -138,6 +120,8 @@ namespace RocketApi.Controllers
             }
             return buildings_list;
         }
+        
+        //-------------------------------------------------------------------------------------------------------------------------------\\
 
         // PUT: api/buildings/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
