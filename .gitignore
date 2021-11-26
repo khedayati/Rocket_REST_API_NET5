@@ -13,4 +13,5 @@ appsettings.Development.json
 *.csproj.nuget.dgspec.json
 *.csproj.nuget.g.props
 *.assets.json
+**/Properties/
 RocketApi.csproj
