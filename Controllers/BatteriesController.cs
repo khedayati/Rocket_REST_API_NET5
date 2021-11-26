@@ -30,22 +30,17 @@ namespace RocketApi.Controllers
     {
         return await _context.batteries.ToListAsync();
     }
-
     [HttpGet]
     public async Task<dynamic> GetAllBatteries()
     {
-
       var batteries = await _context.batteries.ToListAsync();
-
       var i = 0;
-
       var numbers = new List<Int64>() { };
       foreach (Battery battery in batteries)
       {
         i++;
       }
       numbers.Add(i);
-
       return numbers;
     }
 */

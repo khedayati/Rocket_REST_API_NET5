@@ -1,3 +1,4 @@
+
 using System;
 
 namespace RocketApi.Models
@@ -11,11 +12,11 @@ namespace RocketApi.Models
     public string phone { get; set; }
     public string project_name { get; set; }
     public string project_description { get; set; }
-    public string department_in_charge_of_the_elevators { get; set; }
+    public string departement_in_charge_of_the_elevators { get; set; }
     public string message { get; set; }
     public DateTime? updated_at { get; set; }
     public DateTime? date_of_creation { get; set; }
-    // public long customer_id { get; set; }
+    //public long customer_id { get; set; }
 
   }
 }
