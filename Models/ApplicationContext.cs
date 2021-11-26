@@ -19,7 +19,7 @@ namespace RocketApi.Models
         public DbSet<Customer> customers { get; set; }
 
         public DbSet<Lead> leads { get; set; }
-        public DbSet<Building> buildings { get; set; }
+        public DbSet<buildings> buildings { get; set; }
 
         //public DbSet<Lead> leads { get; set; }
         //public DbSet<RocketApi.Models.Building> Building { get; set; }
