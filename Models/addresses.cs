@@ -2,7 +2,7 @@ using System;
 
 namespace RocketApi.Models
 {
-    public class addresses
+    public class Addresses
     {
         public long id { get; set; }
         public string type_of_address { get; set; }
