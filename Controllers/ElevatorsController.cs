@@ -77,7 +77,7 @@ namespace RocketApi.Controllers
 
             if (!(status.Equals("Online") || status.Equals("online")) && 
                 !(status.Equals("Offline") || status.Equals("offline")) &&
-		!(status.Equals("Intervention") || status.Equals("intervention"))) {
+		        !(status.Equals("Intervention") || status.Equals("intervention"))) {
                 return Unauthorized();
             }
             elevator.status = status;
