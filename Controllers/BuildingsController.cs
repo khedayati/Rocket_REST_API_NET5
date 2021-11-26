@@ -24,14 +24,14 @@ namespace RocketApi.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Building>>> GetBuilding()
         {
-            return await _context.Building.ToListAsync();
+            return await _context.Buildings.ToListAsync();
         }
 
         // GET: api/Buildings/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Building>> GetBuilding(long id)
         {
-            var building = await _context.Building.FindAsync(id);
+            var building = await _context.Buildings.FindAsync(id);
 
             if (building == null)
             {
@@ -77,7 +77,7 @@ namespace RocketApi.Controllers
         [HttpPost]
         public async Task<ActionResult<Building>> PostBuilding(Building building)
         {
-            _context.Building.Add(building);
+            _context.Buildings.Add(building);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetBuilding", new { id = building.id }, building);
@@ -87,13 +87,13 @@ namespace RocketApi.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteBuilding(long id)
         {
-            var building = await _context.Building.FindAsync(id);
+            var building = await _context.Buildings.FindAsync(id);
             if (building == null)
             {
                 return NotFound();
             }
 
-            _context.Building.Remove(building);
+            _context.Buildings.Remove(building);
             await _context.SaveChangesAsync();
 
             return NoContent();
@@ -101,7 +101,7 @@ namespace RocketApi.Controllers
 
         private bool BuildingExists(long id)
         {
-            return _context.Building.Any(e => e.id == id);
+            return _context.Buildings.Any(e => e.id == id);
         }
     }
 }
