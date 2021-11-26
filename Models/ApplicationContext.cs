@@ -1,5 +1,6 @@
 using System;
 using Microsoft.EntityFrameworkCore;
+using RocketApi.Models;
 
 namespace RocketApi.Models
 {

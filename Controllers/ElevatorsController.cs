@@ -37,12 +37,9 @@ namespace RocketApi.Controllers
             if (elevatorStatus == null) {
                 return NotFound();
             }
-            Console.WriteLine("elevator status = ", elevatorStatus.ToString());
+            //Console.WriteLine("elevator status = ", elevatorStatus.ToString());
             return elevatorStatus;
         }
-
-
-
 
         // GET: api/elevators/5
         [HttpGet("{id}")]
@@ -58,131 +55,44 @@ namespace RocketApi.Controllers
             return elevatorItem;
         }
 
-        // PUT: api/elevators/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        //[HttpPut("{id}")]
-        [HttpPost("{id}/modifyElevatorStatus/{status}")]
-        public async Task<dynamic> ChangeElevatorStatus(long id, string status)
-        //public async Task<IActionResult> ChangeElevatorStatus(long id, Elevator elevatorItem)
+        // GET: api/elevators/elevators-not-in-use
+        [HttpGet("elevators-not-in-use")]
+        public async Task<dynamic> GetElevatorsNotInUse()
         {
-/*
-            var elevator = GetElevator(id);
+            var statusOffline = "Offline";
+            var statusIntervention = "Intervention";
+            return await _context.elevators.Where(b => ((b.status == statusOffline) || (b.status == statusIntervention))).ToListAsync();
+        }
+        
+        // POST: api/elevators/5/Online/modify-elevator-status
+        [HttpPost("{id}/{status}/modify-elevator-status")]
+        public async Task<dynamic> ChangeElevatorStatus(long id, string status)
+        {
+            var elevator = await _context.elevators.FindAsync(id);
+
             if (elevator == null)
             {
                 return NotFound();
             }
 
-
-
-            if (id != elevatorItem.id)
-            {
-                return BadRequest();
+            if (!(status.Equals("Online") || status.Equals("online")) && 
+                !(status.Equals("Offline") || status.Equals("offline")) &&
+		        !(status.Equals("Intervention") || status.Equals("intervention"))) {
+                return Unauthorized();
             }
-
-                        var elevatorStatus = await _context.elevators.Where(b => b.id == id).Select(b => b.status).FirstAsync();
-            if (elevatorStatus == null)
-            {
-                Console.WriteLine("elevator is null");
-                return NotFound();
-            }
-
-            //var elevator = await _context.elevators.FindAsync(id);
-            var elevator = await _context.elevators.FindAsync(id);
-            if (elevator == null)
-            {
-                Console.WriteLine("elevator is null");
-                return NotFound();
-            }
-            Console.WriteLine(elevator.status);
-
-            //await Task.Run(() => _context.Entry(status).State = EntityState.Modified); OK
-            //_context.elevators.FirstAsync(b => b.id == id)
-            //_context.Entry(status).State = EntityState.Modified;
-            //_context.Entry(elevatorStatus).State = EntityState.Modified;
-            //_context.Entry(elevator.status).State = EntityState.Modified;
-            _context.Attach(status);
-            _context.Entry(elevator.status).State = EntityState.Modified;
-
-
-
-                        var elevator = await _context.elevators.FindAsync(id);
-            if (elevator != null) {
-                elevator.status = status;
-                _context.Entry(elevator).Property("status").IsModified = true;
-            }
-*/
-
-            var elevator = await _context.elevators.FindAsync(id);
             elevator.status = status;
-            
             //await _context.SaveChangesAsync();
+            //return elevator;
             
-
-            //_context.Entry(Elevator)
-            
-            
-            //_context.Entry(await _context.elevators.FirstOrDefaultAsync(x => x.id == id)).CurrentValues.SetValues(elevator);
-            //return (await _context.SaveChangesAsync()) > 0;
-
-            //_context.Entry(elevator). = EntityState.Modified;
-            //var elevator = new Elevator { id = id };
-
-/*
-            _context.Update(elevator); // Use Update here instead of Attach
-
-             if (await TryUpdateModelAsync<Elevator>(
-                elevator,
-                "elevator",
-                s => s.status, s => s.Email))
-            {
-                await _context.SaveChangesAsync();
-                return RedirectToPage("./Index");
-            }
-
-            if (elevator == null)
-            {
-                return NotFound();
-            }
-
-            var courseToUpdate = await _context.elevators
-                .FirstOrDefaultAsync(c => c.id == id);
-                try
-                {
-                    await _context.SaveChangesAsync();
-                }
-                    if (await TryUpdateModelAsync<Elevator>(courseToUpdate, "", c => c.status))
-                {
-                try
-            {
-                await _context.SaveChangesAsync();
-            }
-                catch (DbUpdateException)
-            {
-                //Log the error (uncomment ex variable name and write a log.)
-                ModelState.AddModelError("", "Unable to save changes. " +
-                    "Try again, and if the problem persists, " +
-                    "see your system administrator.");
-            }
-            return RedirectToAction(nameof(Index));}
-*/        
-
             try
             {
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!ElevatorExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+                throw;
             }
             return elevator;
-            //return NoContent();
         }
 
         // PUT: api/elevators/5
@@ -218,6 +128,7 @@ namespace RocketApi.Controllers
 
         // POST: api/elevators
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+    /*
         [HttpPost]
         public async Task<ActionResult<Elevator>> PostElevator(Elevator elevatorItem)
         {
@@ -227,7 +138,7 @@ namespace RocketApi.Controllers
             //return CreatedAtAction("GetElevatorItem", new { id = elevatorItem.id }, elevatorItem);
             return CreatedAtAction(nameof(GetElevator), new { id = elevatorItem.id }, elevatorItem);
         }
-
+    */
         // DELETE: api/elevators/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteElevator(long id)
@@ -250,3 +161,4 @@ namespace RocketApi.Controllers
         }
     }
 }
+

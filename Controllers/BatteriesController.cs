@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Linq;
 
 
+
 namespace RocketApi.Controllers
 {
   [Route("api/[controller]")]
@@ -22,32 +23,28 @@ namespace RocketApi.Controllers
     {
       _context = context;
     }
-/*
-    // GET: api/batteries
+
     [HttpGet]
     public async Task<ActionResult<IEnumerable<Battery>>> GetBatteries()
     {
-        return await _context.batteries.ToListAsync();
+      return await _context.batteries.ToListAsync();
     }
 
-    [HttpGet]
-    public async Task<dynamic> GetAllBatteries()
+    //Get: api/Batteries/id       
+    //Info for battery *id= battery you want info on, for example: 1*
+    [HttpGet("{id}")]
+    public ActionResult<List<Battery>> GetBattery(long id)
     {
-
-      var batteries = await _context.batteries.ToListAsync();
-
-      var i = 0;
-
-      var numbers = new List<Int64>() { };
-      foreach (Battery battery in batteries)
-      {
-        i++;
-      }
-      numbers.Add(i);
-
-      return numbers;
+      List<Battery> batteriesList = new List<Battery>();
+      var findBattery = from battery in _context.batteries
+                        where id == battery.building_id
+                        select battery;
+      batteriesList.AddRange(findBattery);
+      return batteriesList;
     }
-*/
+
+    
+    //Get: api/Batteries/id/status
     [HttpGet("{id}/status")]
     public async Task<ActionResult<string>> GetBatteryStatus(long id)
     {
@@ -66,10 +63,33 @@ namespace RocketApi.Controllers
     {
       var battery = await _context.batteries.FindAsync(id);
 
+      if (battery == null) {
+        return NotFound();
+      }
+
+      if (!(status.Equals("Online") || status.Equals("online")) && 
+          !(status.Equals("Offline") || status.Equals("offline")) &&
+		      !(status.Equals("Intervention") || status.Equals("intervention"))) {
+            return Unauthorized();
+      }
+
       battery.status = status;
-      await _context.SaveChangesAsync();
+
+      try
+      {
+        await _context.SaveChangesAsync();
+      }
+      catch (DbUpdateConcurrencyException)
+      {
+        throw;
+      }
+      //await _context.SaveChangesAsync();
 
       return battery;
     }
   }
 }
+
+
+
+
