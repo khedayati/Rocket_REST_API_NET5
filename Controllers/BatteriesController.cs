@@ -22,6 +22,9 @@ namespace RocketApi.Controllers
       _context = context;
     }
 
+    //-------------------------------------------------- Get all batteries ----------------------------------------------------\\
+    
+    // GET: api/Batteries
     [HttpGet]
     public async Task<ActionResult<IEnumerable<Battery>>> GetBatteries()
     {

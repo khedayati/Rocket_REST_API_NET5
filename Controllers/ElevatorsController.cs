@@ -22,6 +22,8 @@ namespace RocketApi.Controllers
             _context = context;
         }
 
+        //-------------------------------------------------- Get all elevators ----------------------------------------------------\\
+
         // GET: api/elevators
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Elevator>>> GetElevators()
@@ -102,11 +104,5 @@ namespace RocketApi.Controllers
             }
             return elevator;
         }
-
-        private bool ElevatorExists(long id)
-        {
-            return _context.elevators.Any(e => e.id == id);
-        }
     }
 }
-

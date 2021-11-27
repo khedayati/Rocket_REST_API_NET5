@@ -18,6 +18,8 @@ namespace RocketApi.Controllers
       _context = context;
     }
 
+    //-------------------------------------------------- Get all columns ----------------------------------------------------\\
+    
     // GET: api/Columns
     [HttpGet]
     public async Task<ActionResult<IEnumerable<Column>>> GetColumn()

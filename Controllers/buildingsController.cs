@@ -20,6 +20,8 @@ namespace RocketApi.Controllers
             _context = context;
         }
 
+        //-------------------------------------------------- Get all buildings ----------------------------------------------------\\
+        
         // GET: api/buildings
         [HttpGet]
         public async Task<ActionResult<IEnumerable<buildings>>> Getbuildings()
@@ -44,7 +46,8 @@ namespace RocketApi.Controllers
         }
 
         //--------- Retrieving a list of Buildings that contain at least one battery, column or elevator requiring intervention ---------\\
-
+        
+        // GET: api/buildings/get-intervention-buildings
         [HttpGet("get-intervention-buildings")]
         public async Task<IEnumerable<buildings>> GetBuildings()
         {
