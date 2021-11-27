@@ -19,7 +19,7 @@ namespace RocketApi.Controllers
     }
 
     //-------------------------------------------------- Get all columns ----------------------------------------------------\\
-    
+
     // GET: api/Columns
     [HttpGet]
     public async Task<ActionResult<IEnumerable<Column>>> GetColumn()
@@ -51,12 +51,6 @@ namespace RocketApi.Controllers
       // Find column by its id
       var column = await _context.columns.FindAsync(id);
 
-      // Check if the given status is either online, offline or intervention
-      if (!(status.Equals("Online") || status.Equals("online")) && 
-          !(status.Equals("Offline") || status.Equals("offline")) &&
-		      !(status.Equals("Intervention") || status.Equals("intervention"))) {
-            return Unauthorized();
-      }
       // Change column status
       column.status = status;
       

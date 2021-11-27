@@ -84,12 +84,6 @@ namespace RocketApi.Controllers
                 return NotFound();
             }
 
-            // Check if the given status is either online, offline or intervention
-            if (!(status.Equals("Online") || status.Equals("online")) && 
-                !(status.Equals("Offline") || status.Equals("offline")) &&
-		        !(status.Equals("Intervention") || status.Equals("intervention"))) {
-                return Unauthorized();
-            }
             // Change elevator status
             elevator.status = status;
 
