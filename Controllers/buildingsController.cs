@@ -49,8 +49,24 @@ namespace RocketApi.Controllers
         
         // GET: api/buildings/get-intervention-buildings
         [HttpGet("get-intervention-buildings")]
-        public async Task<IEnumerable<buildings>> GetBuildings()
+        //public async Task<IEnumerable<buildings>> GetBuildings()
+        //{
+                    // GET: api/Buildings/InterventionList
+        //[HttpGet("InterventionList")]
+        public async Task<ActionResult<List<buildings>>> GetToFixBuildings()
         {
+            IQueryable<buildings> buildings_list = from AllBuildings in _context.buildings
+            join batteries in _context.batteries on AllBuildings.id equals batteries.building_id
+            join columns in _context.columns on batteries.id equals columns.battery_id
+            join elevators in _context.elevators on columns.id equals elevators.column_id
+            where (batteries.status.Equals("Intervention") || batteries.status.Equals("intervention")) || 
+            (columns.status.Equals("Intervention") || columns.status.Equals("intervention")) || 
+            (elevators.status.Equals("Intervention") || elevators.status.Equals("intervention"))
+            select AllBuildings;
+
+            return await buildings_list.Distinct().ToListAsync();
+            /*
+        //}
             List<buildings> buildings_list = new List<buildings>();
 
             // Begin searching in buildings 
@@ -124,7 +140,9 @@ namespace RocketApi.Controllers
 
                 }
             }
+
             return buildings_list;
+            */
         }
     }
 }
