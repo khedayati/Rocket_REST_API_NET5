@@ -21,6 +21,9 @@ namespace RocketApi.Models
         public DbSet<Lead> leads { get; set; }
         public DbSet<buildings> buildings { get; set; }
 
+        public DbSet<BuildingDetails> building_details { get; set; }
+
+
         //public DbSet<Lead> leads { get; set; }
         //public DbSet<RocketApi.Models.Building> Building { get; set; }
 

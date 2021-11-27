@@ -6,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
 using RocketApi.Models;
+using Npgsql;
 //using RocketApi.Models;
 
 namespace RocketApi
@@ -23,12 +24,15 @@ namespace RocketApi
         {
             services.AddControllers();
             var connectionString = Configuration.GetConnectionString("WebApiDatabase"); // MYSQL_CONNECTION_STRING WebApiDatabase
-            var serverVersion = new MySqlServerVersion(new System.Version(8, 0, 27));   
+            var psqlConnectionString = Configuration.GetConnectionString("PostGresqlDatabase");
+            var serverVersion = new MySqlServerVersion(new System.Version(8, 0, 27));
             services.AddDbContext<ApplicationContext>(opt =>
                                                opt.UseMySql(connectionString, serverVersion));
+            services.AddDbContext<PostGresqlContext>(opt =>
+                                                opt.UseNpgsql(psqlConnectionString));
 
 
-           // services.AddDbContext<ElevatorsContext>(opt =>
+            // services.AddDbContext<ElevatorsContext>(opt =>
             //                                   opt.UseInMemoryDatabase("relational_database"));
             //services.AddSwaggerGen(c =>
             //{
