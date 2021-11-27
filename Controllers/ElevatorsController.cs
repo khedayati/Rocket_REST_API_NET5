@@ -72,8 +72,8 @@ namespace RocketApi.Controllers
         
         //----------------------------------- Changing the status of a specific Elevator -----------------------------------\\
 
-        // POST: api/elevators/update/id/status
-        [HttpPost("update/{id}/{status}")]
+        // GET: api/elevators/update/id/status
+        [HttpGet("update/{id}/{status}")]
         public async Task<dynamic> ChangeElevatorStatus(long id, string status)
         {
             // Find elevator by its id
