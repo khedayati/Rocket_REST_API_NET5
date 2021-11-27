@@ -19,7 +19,7 @@ To answer the 9 questions below with REST Api, use `Postman`: import the link be
 
 [2.2-Changing the status of a specific Battery to intervention](https://rocketrestapinet.azurewebsites.net/api/batteries/update/1/intervention)
 
-[2.3-Changing the status of a specific Battery to inactive](https://rocketrestapinet.azurewebsites.net/api/batteries/1/inactive)
+[2.3-Changing the status of a specific Battery to inactive](https://rocketrestapinet.azurewebsites.net/api/batteries/update/1/inactive)
 
 [3-Retrieving the current status of a specific Column](https://rocketrestapinet.azurewebsites.net/api/columns/5/status)
 
