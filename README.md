@@ -43,6 +43,12 @@ To answer the 9 questions below with REST Api, use `Postman`: import the link be
 
 [9-Retrieving a list of Leads created in the last 30 days who have not yet become customers.](https://rocketrestapinet.azurewebsites.net/api/leads)
 
+[10.1-First question of the graphql query](https://rocketrestapinet.azurewebsites.net/api/question/1/5)
+
+[10.2-Second question of the graphql query](https://rocketrestapinet.azurewebsites.net/api/question/2/5)
+
+[10.3-Third question of the graphql query](https://rocketrestapinet.azurewebsites.net/api/question/3/5)
+
 <br>
 
 # NOTE:
