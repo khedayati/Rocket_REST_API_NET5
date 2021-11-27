@@ -49,7 +49,7 @@ namespace RocketApi.Controllers
         
         // GET: api/buildings/get-intervention-buildings
         [HttpGet("get-intervention-buildings")]
-        public async Task<ActionResult<List<buildings>>> GetToFixBuildings()
+        public async Task<ActionResult<List<buildings>>> GetInterventionBuildings()
         {
             // Find in batteries where its building_id is equal to building.id (battery that is part of the building)
             // and in columns, find batteries.id  that is equal to column.battery_id (column that is part of the battery)
