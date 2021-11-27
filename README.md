@@ -23,9 +23,9 @@ To answer the 9 questions below with REST Api, use `Postman`: import the link be
 
 [3-Retrieving the current status of a specific Column](https://rocketrestapinet.azurewebsites.net/api/columns/5/status)
 
-[4.1-Changing the status of a specific Column to active](https://rocketrestapinet.azurewebsites.net/api/columns/5/update/active)
+[4.1-Changing the status of a specific Column to active](https://rocketrestapinet.azurewebsites.net/api/columns/update/5/active)
 
-[4.2-Changing the status of a specific Column to inactive](https://rocketrestapinet.azurewebsites.net/api/columns/5/update/inactive)
+[4.2-Changing the status of a specific Column to inactive](https://rocketrestapinet.azurewebsites.net/api/columns/update/5/inactive)
 
 [4.3-Changing the status of a specific Column to intervention](https://rocketrestapinet.azurewebsites.net/api/columns/update/5/intervention)
 
