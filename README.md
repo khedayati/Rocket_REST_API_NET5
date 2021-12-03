@@ -8,10 +8,25 @@ To answer the 9 questions below with REST Api, use `Postman`: import the link be
 
 [Postman Collection](https://www.getpostman.com/collections/908796cf0a1bff84363a)
 
+For the PUT requests, a JSON can be sent to modify the status of an intervention like so:
+
+{
+    "status": "InProgress"
+}
+
+The id of the intervention must be included in the url for the PUT method like so:
+
+api/interventions/update-to-pending/{id}
 
 <br>
 
 # Rocket Elevators REST API Collection includes: 
+
+[1- Get pending interventions](https://rocketrestapinet.azurewebsites.net/api/interventions/get-pending-interventions)
+
+[2- Change status of an intervention to "InProgress"](https://rocketrestapinet.azurewebsites.net/api/interventions/update-to-pending/id)
+ 
+[3- Change status of an intervention to "Completed"](https://rocketrestapinet.azurewebsites.net/api/interventions/update-to-completed/id)
 
 [1- Retrieving the current status of a specific Battery](https://rocketrestapinet.azurewebsites.net/api/batteries/1/status)
 

@@ -55,7 +55,9 @@ namespace RocketApi.Controllers
             // and in columns, find batteries.id  that is equal to column.battery_id (column that is part of the battery)
             // and in elevtors, find column.id  that is equal to elevators.column_id (elevator that is part of the column)
             // and add the building they're part of in the building list.
+
             IQueryable<buildings> buildings_list = from AllBuildings in _context.buildings
+            join customers in _context.customers on AllBuildings.customer_id equals customers.id
             join batteries in _context.batteries on AllBuildings.id equals batteries.building_id
             join columns in _context.columns on batteries.id equals columns.battery_id
             join elevators in _context.elevators on columns.id equals elevators.column_id
@@ -63,7 +65,6 @@ namespace RocketApi.Controllers
             (columns.status.Equals("Intervention") || columns.status.Equals("intervention")) || 
             (elevators.status.Equals("Intervention") || elevators.status.Equals("intervention"))
             select AllBuildings;
-
             return await buildings_list.Distinct().ToListAsync();
         }
     }
